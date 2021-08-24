@@ -4,7 +4,8 @@ import {
     Typography,
     Box,
     ButtonGroup,
-    Button
+    Button,
+    Divider
 } from "@material-ui/core";
 import Budgetly from "../Images/Budgetly.gif";
 import BackgroundImage from "../Images/LoginBackground.webp";
@@ -19,11 +20,15 @@ const useStyles = makeStyles({
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh"
     },
     leftSide: {
         height: "100vh",
         width: "40%",
-        border: "1px solid black",
         backdropFilter: "blur(3px)",
         display: "flex",
         flexDirection: "column",
@@ -32,29 +37,31 @@ const useStyles = makeStyles({
     },
     rightSide: {
         height: "100vh",
-        width: "60%",
-        border: "1px solid black",
+        width: "100%",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
     },
     image: {
-        height: "40vh",
-        width: "40vh"
+        height: "30vh",
+        width: "30vh",
+        marginBottom: -10
     },
     name: {
         fontWeight: 'bold',
-        WebkitTextStroke: '1px black'
+        WebkitTextStroke: '1px black',
+        marginBottom: 30
     },
     loginBox: {
         height: "50vh",
-        width: "80%",
+        width: "600px",
         border: "3px solid",
         display: "flex",
         padding: "10px",
         alignItems: "center",
         flexDirection: "column",
+        backdropFilter: "blur(3px)",
     }
 });
 
@@ -67,6 +74,7 @@ function Login() {
             container
             className={classes.root}
         >
+            {/*
             <Grid
                 item
                 className={classes.leftSide}
@@ -84,12 +92,25 @@ function Login() {
                 >
                     Budgetly
                 </Typography>
-            </Grid>
+            </Grid> **/}
+            
             <Grid
                 item
                 className={classes.rightSide}
                 xs={6}
             >
+                <img
+                    className={classes.image}
+                    src={Budgetly}
+                    alt="Logo"
+                />
+                <Typography
+                    variant="h1"
+                    color='primary'
+                    className={classes.name}
+                >
+                    Budgetly
+                </Typography>
                 <Box
                     border={1}
                     color="primary.main"
@@ -99,6 +120,9 @@ function Login() {
                     <ButtonGroup
                         color="secondary"
                         variant="contained"
+                        style={{
+                            marginTop: "20px"
+                        }}
                     >
                         <Button
                             onClick={() => setIsShowingLogin(true)}
@@ -111,6 +135,7 @@ function Login() {
                             Sign Up
                         </Button>
                     </ButtonGroup>
+
                     {isShowingLogin ? <LoginForm/> : <SignupForm/>}
                 </Box>
             </Grid>
