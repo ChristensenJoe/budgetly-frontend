@@ -5,23 +5,35 @@ import {
   Route
 } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/styles";
+import {useState} from "react"
 
 import {lightTheme}  from "./Themes/Lightmode";
 import Login from "./Pages/Login";
-import Dashboard from "./Pages/Dashboard";
+import UserRoutes from "./Pages/UserRoutes";
 import NavBar from "./Components/NavBar/NavBar.js";
 
+
 function App() {
+
+  const [user, setUser] = useState(null);
+
   return (
     <ThemeProvider theme={lightTheme}>
       <Router>
         <Switch>
           <Route exact path="/login">
-            <Login />
+            <Login 
+              setUser={setUser}
+            />
           </Route>
           <Route path="/:user">
-            <NavBar />
-            <Dashboard />
+            <NavBar 
+              userData={user}
+            />
+            <UserRoutes 
+              userData={user}
+              setUser={setUser}
+            />
           </Route>
           <Route exact path="/">
             <h1>Starting Page</h1>

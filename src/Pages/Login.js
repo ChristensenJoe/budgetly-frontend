@@ -4,12 +4,11 @@ import {
     Typography,
     Box,
     ButtonGroup,
-    Button,
-    Divider
+    Button
 } from "@material-ui/core";
 import Budgetly from "../Images/Budgetly.gif";
 import BackgroundImage from "../Images/LoginBackground.webp";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import LoginForm from "../Components/Forms/LoginForm";
 import SignupForm from "../Components/Forms/SignupForm";
@@ -26,16 +25,7 @@ const useStyles = makeStyles({
         alignItems: "center",
         height: "100vh"
     },
-    leftSide: {
-        height: "100vh",
-        width: "40%",
-        backdropFilter: "blur(3px)",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    rightSide: {
+    container: {
         height: "100vh",
         width: "100%",
         display: "flex",
@@ -65,38 +55,26 @@ const useStyles = makeStyles({
     }
 });
 
-function Login() {
+function Login({ setUser }) {
     const classes = useStyles();
     const [isShowingLogin, setIsShowingLogin] = useState(true);
+    const [userList, setUserList] = useState([])
+
+
+    useEffect(() => {
+        fetch("http://localhost:9292/users")
+        .then(res => res.json())
+        .then(setUserList)
+    }, []);
 
     return (
         <Grid
             container
             className={classes.root}
         >
-            {/*
             <Grid
                 item
-                className={classes.leftSide}
-                xs={6}
-            >
-                <img
-                    className={classes.image}
-                    src={Budgetly}
-                    alt="Logo"
-                />
-                <Typography
-                    variant="h1"
-                    color='primary'
-                    className={classes.name}
-                >
-                    Budgetly
-                </Typography>
-            </Grid> **/}
-            
-            <Grid
-                item
-                className={classes.rightSide}
+                className={classes.container}
                 xs={6}
             >
                 <img
@@ -136,7 +114,18 @@ function Login() {
                         </Button>
                     </ButtonGroup>
 
-                    {isShowingLogin ? <LoginForm/> : <SignupForm/>}
+                    {
+                        isShowingLogin
+                            ?
+                            <LoginForm
+                                setUser={setUser}
+                                userList={userList}
+                            />
+                            :
+                            <SignupForm
+                                setUser={setUser}
+                            />
+                    }
                 </Box>
             </Grid>
         </Grid>
