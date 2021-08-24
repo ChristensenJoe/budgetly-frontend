@@ -56,6 +56,7 @@ function Dashboard({ userData, setUser }) {
     const [open, setOpen] = useState(false);
     const [dialogForm, setDialogForm] = useState({
         balance: 0.0,
+        paycheck: 0.0,
         date1: "",
         date2: ""
     })
@@ -97,6 +98,7 @@ function Dashboard({ userData, setUser }) {
             },
             body: JSON.stringify({
                 balance: dialogForm.balance,
+                paycheck: dialogForm.paycheck,
                 pay_dates: pay_dates
             })
         })
@@ -205,6 +207,18 @@ function Dashboard({ userData, setUser }) {
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
+                                    onChange={handleDialogFormChange}
+                                />
+                            </Grid>
+                            <Grid
+                                item
+                                xs={6}
+                            >
+                                <TextField
+                                    label="Paycheck Amount"
+                                    name="paycheck"
+                                    color="primary"
+                                    variant="outlined"
                                     onChange={handleDialogFormChange}
                                 />
                             </Grid>
