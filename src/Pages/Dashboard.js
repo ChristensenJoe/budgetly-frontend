@@ -27,13 +27,19 @@ const useStyles = makeStyles({
         display: 'flex',
         justifyContent: 'center',
         flexDirection: 'column',
-        alignItems: 'center',
+        alignItems: 'start',
+        textAlign: 'center'
+    },
+    rightGrid: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'start',
         textAlign: 'center'
     },
     gridItems: {
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'top',
         textAlign: 'center'
     },
     dialogContent: {
@@ -71,7 +77,7 @@ function Dashboard({ userData, setUser }) {
         if (userData.pay_dates === "") {
             setOpen(true);
         }
-    }, [open])
+    }, [open, userData.pay_dates])
 
     function handleCloseDialog() {
         setOpen(false)
@@ -147,7 +153,7 @@ function Dashboard({ userData, setUser }) {
                     </Grid>
                 </Grid>
                 <Grid
-                    className={classes.gridItems}
+                    className={classes.rightGrid}
                     item
                     xs={12}
                     md={6}
