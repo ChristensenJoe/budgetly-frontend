@@ -69,7 +69,6 @@ function Dashboard({ userData, setUser }) {
 
     if (!userData) {
         history.push("/login")
-        userData = []
     }
 
     //New user dialog Box check

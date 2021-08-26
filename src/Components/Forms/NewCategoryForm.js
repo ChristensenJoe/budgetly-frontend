@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function NewCategoryForm(userData) {
+function NewCategoryForm({userData}) {
     const history = useHistory();
     const theme = useTheme();
     const classes = useStyles(theme);
@@ -46,7 +46,6 @@ function NewCategoryForm(userData) {
             }
         });
     }
-    userData = userData.userData
 
     function onSubmitForm(event) {
         event.preventDefault();

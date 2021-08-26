@@ -49,7 +49,7 @@ function NavBar({ userData }) {
     fetch(`http://localhost:9292/categories?user_id=${userData.id}`)
       .then(res => res.json())
       .then(setCategories);
-  }, [])
+  }, [userData.id])
 
   function handleDrawerClick() {
     setIsOpen((isOpen) => !isOpen)

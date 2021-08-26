@@ -87,7 +87,6 @@ function Category({ userData }) {
 
     if (!userData) {
         history.push('/login')
-        userData = []
     }
 
     useEffect(() => {

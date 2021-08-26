@@ -1,12 +1,12 @@
-import { useParams, Switch, Route } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 
 import Dashboard from "./Dashboard";
 import Category from "./Category";
 import Transactions from "./Transactions";
 import CreateCategory from "./CreateCategory";
+import CreateTransaction from "./CreateTransaction";
 
 function UserRoutes({ userData, setUser }) {
-    //const {user} = useParams()
     return (
         <Switch>
             <Route exact path="/:user/transactions">
@@ -17,6 +17,12 @@ function UserRoutes({ userData, setUser }) {
             <Route exact path="/:user/create-category">
                 <CreateCategory 
                     userData={userData}
+                />
+            </Route>
+            <Route exact path="/:user/create-transaction">
+                <CreateTransaction 
+                    userData={userData}
+                    setUser={setUser}
                 />
             </Route>
             <Route path="/:user/:category">

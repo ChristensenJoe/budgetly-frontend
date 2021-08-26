@@ -67,7 +67,6 @@ function Transactions({ userData }) {
 
     if (!userData) {
         history.push('/login')
-        userData = []
     }
 
     useEffect(() => {
@@ -81,7 +80,7 @@ function Transactions({ userData }) {
             });
 
         return () => { isMounted = false }
-    }, [])
+    }, [userData.id])
 
     console.log(transactions);
 
@@ -134,7 +133,8 @@ function Transactions({ userData }) {
                         <TableBody>
                             {transactions.map(transaction => {
                                 return (
-                                    <TransactionsTableItem 
+                                    <TransactionsTableItem
+                                        key={transaction.id} 
                                         name={transaction.name}
                                         amount={transaction.amount}
                                         date={transaction.created_at}

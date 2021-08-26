@@ -11,7 +11,7 @@ import {
 
 import { useHistory } from 'react-router-dom'
 
-import NewCategoryForm from '../Components/Forms/NewCategoryForm'
+import NewTransactionForm from '../Components/Forms/NewTransactionForm'
 
 
 
@@ -41,6 +41,7 @@ const useStyles = makeStyles(theme => ({
         display: 'inline-block',
         verticalAlign: 'top',
         fontWeight: 'bold',
+        textAlign: 'center',
     },
     divider: {
         backgroundColor: theme.palette.primary.dark,
@@ -53,7 +54,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-function CreateCategory({ userData }) {
+function CreateTransaction({ userData, setUser }) {
     const theme = useTheme();
     const classes = useStyles(theme);
     const history = useHistory();
@@ -77,7 +78,7 @@ function CreateCategory({ userData }) {
                         className={classes.title}
                         variant="h2"
                     >
-                        New Category
+                        New Transaction
                     </Typography>
                     <Divider
                         className={classes.divider}
@@ -85,8 +86,9 @@ function CreateCategory({ userData }) {
                 </CardContent>
 
                 <CardContent>
-                    <NewCategoryForm
+                    <NewTransactionForm
                         userData={userData}
+                        setUser={setUser}
                     />
                 </CardContent>
             </Card>
@@ -94,4 +96,4 @@ function CreateCategory({ userData }) {
     );
 }
 
-export default CreateCategory;
+export default CreateTransaction;

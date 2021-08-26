@@ -47,10 +47,15 @@ function NavDrawer({ userData, categories, isOpen, handleDrawerClick }) {
     const theme = useTheme();
     const classes = useStyles(theme);
     const [isNestedOpen, setIsNestedOpen] = useState(false);
+    const [isOtherNestedOpen, setIsOtherNestedOpen] = useState(false);
 
     function handleNestedClick() {
         setIsNestedOpen((isNestedOpen) => !isNestedOpen)
     }
+    function handleOtherNestedClick() {
+        setIsOtherNestedOpen((isOtherNestedOpen) => !isOtherNestedOpen)
+    }
+
     return (
         <Drawer
             className={classes.drawer}
@@ -156,16 +161,67 @@ function NavDrawer({ userData, categories, isOpen, handleDrawerClick }) {
                     <Divider />
                     <ListItem
                         button
-                        component={Link}
-                        to={`/${userData.username}/transactions`}
+                        onClick={handleOtherNestedClick}
                     >
                         <ListItemIcon>
                             <DescriptionIcon />
                         </ListItemIcon>
                         <ListItemText
-                            primary="Transactions"
+                            primary={
+                                <Typography>
+                                    Transactions
+                                </Typography>
+                            }
                         />
+                        {isOtherNestedOpen ? <ExpandLess /> : <ExpandMore />}
                     </ListItem>
+                    <Divider />
+                    <Collapse
+                        in={isOtherNestedOpen}
+                        timeout="auto"
+                        unmountOnExit
+                    >
+                        <List
+                            component="div"
+                            disablePadding
+                        >
+                            <ListItem
+                                component={Link}
+                                button
+                                className={classes.nested}
+                                to={`/${userData.username}/transactions`}
+                            >
+                                <ListItemText
+                                    inset
+                                    primary={
+                                        <Typography
+                                            variant="body1"
+                                        >
+                                            All Transactions
+                                        </Typography>
+                                    }
+                                />
+                            </ListItem>
+                            <Divider variant="inset" />
+                            <ListItem
+                                component={Link}
+                                button
+                                className={classes.nested}
+                                to={`/${userData.username}/create-transaction`}
+                            >
+                                <ListItemText
+                                    inset
+                                    primary={
+                                        <Typography
+                                            variant="body1"
+                                        >
+                                            New Transaction
+                                        </Typography>
+                                    }
+                                />
+                            </ListItem>
+                        </List>
+                    </Collapse>
                     <Divider />
                 </List>
             </div>
