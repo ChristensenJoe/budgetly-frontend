@@ -70,7 +70,11 @@ function NavDrawer({ userData, categories, isOpen, handleDrawerClick }) {
                 <List
                     component="nav"
                 >
-                    <ListItem button>
+                    <ListItem
+                        button
+                        component={Link}
+                        to={`/${userData.username}`}
+                    >
                         <ListItemIcon>
                             <HomeIcon />
                         </ListItemIcon>

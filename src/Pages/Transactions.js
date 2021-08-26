@@ -16,9 +16,10 @@ import {
 
 } from '@material-ui/core'
 
-import { useParams, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
+import TransactionsTableItem from '../Components/Tables/TransactionTableItem'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -61,9 +62,7 @@ const useStyles = makeStyles(theme => ({
 function Transactions({ userData }) {
     const theme = useTheme();
     const classes = useStyles(theme);
-    const params = useParams();
     const history = useHistory();
-    const [category, setCategory] = useState([]);
     const [transactions, setTransactions] = useState([]);
 
     if (!userData) {
@@ -71,7 +70,20 @@ function Transactions({ userData }) {
         userData = []
     }
 
+    useEffect(() => {
+        let isMounted = true
+        fetch(`http://localhost:9292/transactions?user_id=${userData.id}`)
+            .then(res => res.json())
+            .then(data => {
+                if(isMounted) {
+                    setTransactions(data)
+                }
+            });
 
+        return () => { isMounted = false }
+    }, [])
+
+    console.log(transactions);
 
     return (
         <Container
@@ -88,7 +100,7 @@ function Transactions({ userData }) {
                     className={classes.title}
                     variant="h2"
                 >
-                    {category.name}
+                    All Transactions
                 </Typography>
                 <Divider
                     className={classes.divider}
@@ -120,7 +132,15 @@ function Transactions({ userData }) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            
+                            {transactions.map(transaction => {
+                                return (
+                                    <TransactionsTableItem 
+                                        name={transaction.name}
+                                        amount={transaction.amount}
+                                        date={transaction.created_at}
+                                    />
+                                )                                
+                            })}
                         </TableBody>
                     </Table>
                 </TableContainer>
