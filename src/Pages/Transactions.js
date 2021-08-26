@@ -19,7 +19,6 @@ import {
 import { useParams, useHistory } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
-import CategoryTransactionsTableItem from '../Components/Tables/CategoryTransactionsTableItem'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -59,7 +58,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-function Category({ userData }) {
+function Transactions({ userData }) {
     const theme = useTheme();
     const classes = useStyles(theme);
     const params = useParams();
@@ -72,24 +71,7 @@ function Category({ userData }) {
         userData = []
     }
 
-    useEffect(() => {
-        let isMounted = true
-        fetch(`http://localhost:9292/categories?user_id=${userData.id}&category_name=${params.category}`)
-            .then(res => res.json())
-            .then(data => {
-                if (isMounted) {
-                    setCategory(data);
 
-                    fetch(`http://localhost:9292/transactions?category_id=${data.id}`)
-                        .then(res => res.json())
-                        .then(data => {
-                            setTransactions(data);
-                        })
-                }
-            })
-
-        return () => { isMounted = false }
-    }, [params.category, userData.id])
 
     return (
         <Container
@@ -138,16 +120,7 @@ function Category({ userData }) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {transactions.map(transaction => {
-                                return (
-                                    <CategoryTransactionsTableItem
-                                        key={transaction.id}
-                                        name={transaction.name}
-                                        amount={transaction.amount}
-                                        date={transaction.created_at}
-                                    />
-                                )
-                            })}
+                            
                         </TableBody>
                     </Table>
                 </TableContainer>
@@ -157,4 +130,4 @@ function Category({ userData }) {
     );
 }
 
-export default Category;
+export default Transactions;

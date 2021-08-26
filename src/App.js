@@ -15,7 +15,7 @@ import NavBar from "./Components/NavBar/NavBar.js";
 
 function App() {
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState("");
 
   return (
     <ThemeProvider theme={lightTheme}>
