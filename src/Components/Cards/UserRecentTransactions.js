@@ -57,7 +57,7 @@ function UserRecentTransactions({ userData }) {
 
         return () => { isMounted = false }
     }, [userData.id])
-    console.log(transactions)
+    
     return (
         <Card
             className={classes.root}

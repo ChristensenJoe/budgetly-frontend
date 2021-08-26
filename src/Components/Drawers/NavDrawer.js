@@ -133,6 +133,24 @@ function NavDrawer({ userData, categories, isOpen, handleDrawerClick }) {
                                     );
                                 })
                             }
+                            <Divider variant="inset" />
+                            <ListItem
+                                component={Link}
+                                button
+                                className={classes.nested}
+                                to={`/${userData.username}/create-category`}
+                            >
+                                <ListItemText
+                                    inset
+                                    primary={
+                                        <Typography
+                                            variant="body1"
+                                        >
+                                            Create Category
+                                        </Typography>
+                                    }
+                                />
+                            </ListItem>
                         </List>
                     </Collapse>
                     <Divider />

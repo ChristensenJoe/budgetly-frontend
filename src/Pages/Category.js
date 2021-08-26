@@ -12,7 +12,8 @@ import {
     TableContainer,
     TableRow,
     TableCell,
-    Paper
+    Paper,
+    Grid
 
 } from '@material-ui/core'
 
@@ -52,10 +53,27 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: theme.palette.primary.dark,
         height: "2px",
         width: '100%',
-
+        marginBottom: -10,
+        marginLeft: 'auto',
+        marginRight: 'auto'
     },
-    list: {
-        
+    infoSubDivider: {
+        backgroundColor: theme.palette.primary.dark,
+        height: "2px",
+        width: '60%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginBottom: 20
+    },
+    information: {
+        margin: 20,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center'
+    },
+    tableContainer: {
+        marginTop: 20
     }
 }))
 
@@ -100,58 +118,124 @@ function Category({ userData }) {
                 elevation={3}
             >
                 <CardContent
-                className={classes.content}
-            >
-                <Typography
-                    className={classes.title}
-                    variant="h2"
+                    className={classes.content}
                 >
-                    {category.name}
-                </Typography>
-                <Divider
-                    className={classes.divider}
-                />
-            </CardContent>
+                    <Typography
+                        className={classes.title}
+                        variant="h2"
+                    >
+                        {category.name}
+                    </Typography>
+                    <Divider
+                        className={classes.divider}
+                    />
+                </CardContent>
 
-            <CardContent>
-                <TableContainer
-                    component={Paper}
+                <CardContent
+                    className={classes.content}
                 >
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell
-                                    align="left"
-                                >
-                                    Name
-                                </TableCell>
-                                <TableCell
-                                    align="right"
-                                >
-                                    Amount
-                                </TableCell>
-                                <TableCell
-                                    align="right"
-                                >
-                                    Date
-                                </TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {transactions.map(transaction => {
-                                return (
-                                    <CategoryTransactionsTableItem
-                                        key={transaction.id}
-                                        name={transaction.name}
-                                        amount={transaction.amount}
-                                        date={transaction.created_at}
-                                    />
-                                )
-                            })}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </CardContent>
+                    <Typography
+                        className={classes.title}
+                        variant="h3"
+                    >
+                        Information
+                    </Typography>
+                    <Grid
+                        className={classes.information}
+                        container
+                        spacing={3}
+                    >
+                        <Grid
+                            item
+                            xs={6}
+                        >
+                            <Typography
+                                variant="h4"
+                            >
+                                Balance
+                            </Typography>
+                            <Divider
+                                className={classes.infoSubDivider}
+                            />
+                            <Typography
+                                variant="h4"
+                            >
+                                {`$${category.balance}`}
+                            </Typography>
+                        </Grid>
+                        <Grid
+                            item
+                            xs={6}
+                        >
+                            <Typography
+                                variant="h4"
+                            >
+                                Percentage
+                            </Typography>
+                            <Divider
+                                className={classes.infoSubDivider}
+                            />
+                            <Typography
+                                variant="h4"
+                            >
+                                {`${category.percentage}%`}
+                            </Typography>
+                        </Grid>
+                    </Grid>
+
+                    <Divider
+                        className={classes.divider}
+                    />
+                </CardContent>
+
+                <CardContent
+                    className={classes.content}
+                >
+                    <Typography
+                        className={classes.title}
+                        variant="h3"
+                    >
+                        Transactions
+                    </Typography>
+                    <TableContainer
+                        className={classes.tableContainer}
+                        component={Paper}
+                    >
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell
+                                        align="left"
+                                    >
+                                        Name
+                                    </TableCell>
+                                    <TableCell
+                                        align="right"
+                                    >
+                                        Amount
+                                    </TableCell>
+                                    <TableCell
+                                        align="right"
+                                    >
+                                        Date
+                                    </TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {transactions.map(transaction => {
+                                    return (
+                                        <CategoryTransactionsTableItem
+                                            key={transaction.id}
+                                            name={transaction.name}
+                                            amount={transaction.amount}
+                                            date={transaction.created_at}
+                                        />
+                                    )
+                                })}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </CardContent>
             </Card>
         </Container>
     );
