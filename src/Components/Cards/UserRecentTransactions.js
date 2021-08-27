@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
     root: {
         minHeight: '30vh',
         width: '60vh',
-        backgroundColor: theme.palette.primary.main,
+        backgroundColor: theme.palette.secondary.light,
         overflow: 'scroll'
     },
     content: {
@@ -27,9 +27,10 @@ const useStyles = makeStyles(theme => ({
         display: 'inline-block',
         verticalAlign: 'top',
         fontWeight: 'bold',
+        fontSize: 50,
+        color: theme.palette.primary.dark
     },
     divider: {
-        backgroundColor: theme.palette.secondary.dark,
         height: "3px",
         width: '80%',
 
@@ -90,6 +91,7 @@ function UserRecentTransactions({ userData }) {
                                 name={transaction.name}
                                 amount={transaction.amount}
                                 userData={userData}
+                                gain={transaction.gain}
                             />
                         )
                     })}

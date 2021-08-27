@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     root: {
         height: '35vh',
         width: '60vh',
-        backgroundColor: theme.palette.primary.main
+        backgroundColor: theme.palette.secondary.light
     },
     content: {
         display: 'flex',
@@ -23,9 +23,9 @@ const useStyles = makeStyles(theme => ({
         display: 'inline-block',
         verticalAlign: 'top',
         fontWeight: 'bold',
+        color: theme.palette.primary.dark,
     },
     divider: {
-        backgroundColor: theme.palette.secondary.dark,
         height: "3px",
         width: '90%',
     },
