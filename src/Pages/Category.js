@@ -177,7 +177,7 @@ function Category({ userData }) {
                             <Typography
                                 variant="h4"
                             >
-                                {`${category.percentage}%`}
+                                {`${category.percentage*100}%`}
                             </Typography>
                         </Grid>
                     </Grid>
@@ -228,6 +228,7 @@ function Category({ userData }) {
                                             name={transaction.name}
                                             amount={transaction.amount}
                                             date={transaction.created_at}
+                                            gain={transaction.gain}
                                         />
                                     )
                                 })}

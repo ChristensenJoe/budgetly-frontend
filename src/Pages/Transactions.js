@@ -12,12 +12,13 @@ import {
     TableContainer,
     TableRow,
     TableCell,
-    Paper
+    Paper,
 
 } from '@material-ui/core'
 
 import { useHistory } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+
 
 import TransactionsTableItem from '../Components/Tables/TransactionTableItem'
 
@@ -55,11 +56,11 @@ const useStyles = makeStyles(theme => ({
 
     },
     list: {
-        
+
     }
 }))
 
-function Transactions({ userData }) {
+function Transactions({ userData, setUser }) {
     const theme = useTheme();
     const classes = useStyles(theme);
     const history = useHistory();
@@ -74,7 +75,7 @@ function Transactions({ userData }) {
         fetch(`http://localhost:9292/transactions?user_id=${userData.id}`)
             .then(res => res.json())
             .then(data => {
-                if(isMounted) {
+                if (isMounted) {
                     setTransactions(data)
                 }
             });
@@ -82,7 +83,29 @@ function Transactions({ userData }) {
         return () => { isMounted = false }
     }, [userData.id])
 
-    console.log(transactions);
+    function handleDeleteTransaction(id, amount) {
+        fetch(`http://localhost:9292/transactions/${id}`, {
+            method: 'DELETE'
+        })
+            .then(res => res.json())
+            .then(data => {
+                setTransactions(transactions => transactions.filter(transaction => transaction.id !== id))
+
+                let newBalance = 0;
+                if (data.gain) {
+                    newBalance = Number.parseFloat(userData.balance) - Number.parseFloat(amount)
+                }
+                else {
+                    newBalance = Number.parseFloat(userData.balance) + Number.parseFloat(amount)
+                }
+                setUser((userData) => {
+                    return {
+                        ...userData,
+                        balance: newBalance
+                }
+                })
+            })
+    }
 
     return (
         <Container
@@ -93,58 +116,66 @@ function Transactions({ userData }) {
                 elevation={3}
             >
                 <CardContent
-                className={classes.content}
-            >
-                <Typography
-                    className={classes.title}
-                    variant="h2"
+                    className={classes.content}
                 >
-                    All Transactions
-                </Typography>
-                <Divider
-                    className={classes.divider}
-                />
-            </CardContent>
+                    <Typography
+                        className={classes.title}
+                        variant="h2"
+                    >
+                        All Transactions
+                    </Typography>
+                    <Divider
+                        className={classes.divider}
+                    />
+                </CardContent>
 
-            <CardContent>
-                <TableContainer
-                    component={Paper}
-                >
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell
-                                    align="left"
-                                >
-                                    Name
-                                </TableCell>
-                                <TableCell
-                                    align="right"
-                                >
-                                    Amount
-                                </TableCell>
-                                <TableCell
-                                    align="right"
-                                >
-                                    Date
-                                </TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {transactions.map(transaction => {
-                                return (
-                                    <TransactionsTableItem
-                                        key={transaction.id} 
-                                        name={transaction.name}
-                                        amount={transaction.amount}
-                                        date={transaction.created_at}
-                                    />
-                                )                                
-                            })}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </CardContent>
+                <CardContent>
+                    <TableContainer
+                        component={Paper}
+                    >
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell
+                                        align="left"
+                                    >
+                                        Name
+                                    </TableCell>
+                                    <TableCell
+                                        align="right"
+                                    >
+                                        Amount
+                                    </TableCell>
+                                    <TableCell
+                                        align="right"
+                                    >
+                                        Date
+                                    </TableCell>
+                                    <TableCell
+                                        align="right"
+                                    >
+
+                                    </TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {transactions.map(transaction => {
+                                    return (
+                                        <TransactionsTableItem
+                                            key={transaction.id}
+                                            handleDeleteTransaction={handleDeleteTransaction}
+                                            id={transaction.id}
+                                            name={transaction.name}
+                                            amount={transaction.amount}
+                                            date={transaction.created_at}
+                                            gain={transaction.gain}
+                                        />
+                                    )
+                                })}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </CardContent>
             </Card>
         </Container>
     );

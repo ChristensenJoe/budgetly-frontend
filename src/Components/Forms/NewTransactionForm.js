@@ -49,11 +49,13 @@ function NewTransactionForm({ userData, setUser }) {
     const [isTransactionNameValid, setIsTransactionNameValid] = useState(true);
     const [isAmountValid, setIsAmountValid] = useState(true);
     const [isMainCategoryValid, setIsMainCategoryValid] = useState(true);
+    const [isGainValid, setIsGainValid] = useState(true);
     const [transactionForm, setTransactionForm] = useState({
         name: "",
         amount: "",
         category_ids: [],
-        main_category_id: ""
+        main_category_id: "",
+        gain: ""
     })
 
     const [isOtherCategoriesVisisble, setIsOtherCategoriesVisisble] = useState(false)
@@ -98,7 +100,7 @@ function NewTransactionForm({ userData, setUser }) {
     function handleOtherCategoriesChange(event) {
         const category_ids = transactionForm.category_ids
         let given_id = Number.parseInt(event.target.name, 10);
-        if(category_ids.includes(given_id)) {
+        if (category_ids.includes(given_id)) {
             setTransactionForm(transactionForm => {
                 return {
                     ...transactionForm,
@@ -123,44 +125,57 @@ function NewTransactionForm({ userData, setUser }) {
         setIsAmountValid(true);
         setIsTransactionNameValid(true);
         setIsMainCategoryValid(true);
+        setIsGainValid(true);
 
-        if(transactionForm.name === "") {
+        if (transactionForm.name === "") {
             setIsTransactionNameValid(false)
         }
-        if(transactionForm.amount === "") {
+        if (transactionForm.amount === "") {
             setIsAmountValid(false)
         }
 
-        if(transactionForm.main_category_id === "") {
+        if (transactionForm.main_category_id === "") {
             setIsMainCategoryValid(false)
         }
 
-        if(isAmountValid && isTransactionNameValid && isMainCategoryValid) {
+        if (transactionForm.gain === "") {
+            setIsGainValid(false)
+        }
+
+        if (isAmountValid && isTransactionNameValid && isMainCategoryValid && isGainValid) {
             const newTransaction = {
                 name: transactionForm.name,
                 amount: Number.parseFloat(transactionForm.amount),
                 user_id: userData.id,
                 main_category_id: transactionForm.main_category_id,
-                category_ids: transactionForm.category_ids
+                category_ids: transactionForm.category_ids,
+                gain: transactionForm.gain
             }
-    
-            fetch(`http://localhost:9292/transactions`,{
+
+            fetch(`http://localhost:9292/transactions`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newTransaction)
             })
-            .then(res => res.json())
-            .then(data => {
-                setUser(user => {
-                    return {
-                        ...user,
-                        balance: user.balance-data.amount
+                .then(res => res.json())
+                .then(data => {
+                    let newBalance = 0;
+                    if(transactionForm.gain) {
+                        newBalance = Number.parseFloat(userData.balance) + Number.parseFloat(data.amount)
                     }
+                    else {
+                        newBalance = Number.parseFloat(userData.balance) - Number.parseFloat(data.amount)
+                    }
+                    setUser(user => {
+                        return {
+                            ...user,
+                            balance: newBalance
+                        }
+                    })
+                    history.push(`/${userData.username}/transactions`)
                 })
-                history.push(`/${userData.username}/transactions`)
-            })
         }
-        
+
     }
 
     return (
@@ -221,6 +236,27 @@ function NewTransactionForm({ userData, setUser }) {
                     item
                     xs={12}
                 >
+                    <FormControl
+                        className={classes.formControl}
+                        variant="outlined"
+                        required
+                    >
+                        <InputLabel>Gain or Cost</InputLabel>
+                        <Select
+                            label="Gain or Cost"
+                            name="gain"
+                            value={transactionForm.gain}
+                            onChange={handleChange}
+                            error={!isGainValid}
+                        >
+                            <MenuItem
+                                value={true}
+                            >Gain</MenuItem>
+                            <MenuItem
+                                value={false}
+                            >Cost</MenuItem>
+                        </Select>
+                    </FormControl>
                     <FormControl
                         className={classes.formControl}
                         variant="outlined"

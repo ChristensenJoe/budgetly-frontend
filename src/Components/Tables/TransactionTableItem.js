@@ -1,11 +1,15 @@
 import {
     TableRow,
-    TableCell
+    TableCell,
+    IconButton
 
 } from '@material-ui/core'
 
+import DeleteIcon from '@material-ui/icons/Delete';
 
-function TransactionsTableItem({name, date, amount}) {
+function TransactionsTableItem({ name, id, date, amount, handleDeleteTransaction, gain }) {
+
+
     return (
         <TableRow>
             <TableCell
@@ -16,12 +20,21 @@ function TransactionsTableItem({name, date, amount}) {
             <TableCell
                 align="right"
             >
-                ${amount}
+                {gain ? "+" : "-"}${amount}
             </TableCell>
             <TableCell
                 align="right"
             >
                 {date}
+            </TableCell>
+            <TableCell
+                align="right"
+            >
+                <IconButton
+                    onClick={(e) => {handleDeleteTransaction(id, amount)}}
+                >
+                    <DeleteIcon />
+                </IconButton>
             </TableCell>
         </TableRow>
     );

@@ -5,7 +5,7 @@ import {
 } from '@material-ui/core'
 
 
-function CategoryTransactionsTableItem({name, date, amount}) {
+function CategoryTransactionsTableItem({name, date, amount, gain}) {
     return (
         <TableRow>
             <TableCell
@@ -16,7 +16,7 @@ function CategoryTransactionsTableItem({name, date, amount}) {
             <TableCell
                 align="right"
             >
-                ${amount}
+                {gain ? "+" : "-"}${amount}
             </TableCell>
             <TableCell
                 align="right"

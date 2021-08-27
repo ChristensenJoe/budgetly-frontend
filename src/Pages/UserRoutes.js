@@ -12,6 +12,7 @@ function UserRoutes({ userData, setUser }) {
             <Route exact path="/:user/transactions">
                 <Transactions
                     userData={userData}
+                    setUser={setUser}
                 />
             </Route>
             <Route exact path="/:user/create-category">
