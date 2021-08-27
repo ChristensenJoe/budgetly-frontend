@@ -7,7 +7,8 @@ import {
     DialogActions,
     TextField,
     Typography,
-    Button
+    Button,
+    useTheme
 } from '@material-ui/core'
 
 import { useHistory } from 'react-router-dom'
@@ -16,8 +17,9 @@ import UserBalance from '../Components/Cards/UserBalance'
 import UserCategories from '../Components/Cards/UserCategories'
 import UserRecentTransactions from '../Components/Cards/UserRecentTransactions'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     root: {
+        background: theme.palette.primary,
         margin: 20,
         width: "80%",
         marginLeft: 'auto',
@@ -53,11 +55,12 @@ const useStyles = makeStyles({
         textAlign: 'center',
         marginBottom: 40
     }
-});
+}));
 
 
 function Dashboard({ userData, setUser }) {
-    const classes = useStyles();
+    const theme = useTheme();
+    const classes = useStyles(theme);
     const history = useHistory();
     const [open, setOpen] = useState(false);
     const [dialogForm, setDialogForm] = useState({

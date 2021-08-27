@@ -5,7 +5,8 @@ import {
   Toolbar,
   Typography,
   Button,
-  IconButton
+  IconButton,
+  useTheme
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import clsx from "clsx";
@@ -38,10 +39,14 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 240,
   },
+  typography: {
+    color: theme.palette.secondary.main
+  }
 }));
 
 function NavBar({ userData }) {
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles(theme);
   const [isOpen, setIsOpen] = useState(false)
   const [categories, setCategories] = useState([]);
 
@@ -69,7 +74,7 @@ function NavBar({ userData }) {
             <IconButton
               edge="start"
               className={classes.menuButton}
-              color="inherit"
+              color="secondary"
               aria-label="menu"
               onClick={handleDrawerClick}
             >
@@ -80,10 +85,10 @@ function NavBar({ userData }) {
               src={budgetlyImg}
               alt="Budgetly Logo"
             />
-            <Typography variant="h6" className={classes.title}>
+            <Typography variant="h6" color="secondary" className={classes.title}>
               Budgetly
             </Typography>
-            <Button color="inherit">Login</Button>
+            <Button color="secondary">Login</Button>
           </Toolbar>
         </AppBar>
       </div>

@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     card: {
         minHeight: '50vh',
         width: '100%',
-        backgroundColor: theme.palette.secondary.light
+        backgroundColor: theme.palette.primary.light
     },
     content: {
         display: 'flex',
@@ -48,17 +48,18 @@ const useStyles = makeStyles(theme => ({
         display: 'inline-block',
         verticalAlign: 'top',
         fontWeight: 'bold',
+        marginBottom: 10
     },
     divider: {
-        backgroundColor: theme.palette.primary.dark,
-        height: "2px",
+        backgroundColor: theme.palette.secondary.dark,
+        height: "4px",
         width: '100%',
         marginBottom: -10,
         marginLeft: 'auto',
         marginRight: 'auto'
     },
     infoSubDivider: {
-        backgroundColor: theme.palette.primary.dark,
+        backgroundColor: theme.palette.secondary.dark,
         height: "2px",
         width: '60%',
         marginLeft: 'auto',
@@ -74,10 +75,13 @@ const useStyles = makeStyles(theme => ({
     },
     tableContainer: {
         marginTop: 20
+    },
+    infoText: {
+        marginBottom: 6
     }
 }))
 
-function Category({ userData }) {
+function Category({ userData, setUser }) {
     const theme = useTheme();
     const classes = useStyles(theme);
     const params = useParams();
@@ -107,6 +111,39 @@ function Category({ userData }) {
 
         return () => { isMounted = false }
     }, [params.category, userData.id])
+
+    function handleDeleteTransaction(id, amount) {
+        fetch(`http://localhost:9292/transactions/${id}`, {
+            method: 'DELETE'
+        })
+            .then(res => res.json())
+            .then(data => {
+                setTransactions(transactions => transactions.filter(transaction => transaction.id !== id))
+
+                let newUserBalance = 0;
+                let newCategoryBalance = 0;
+                if (data.gain) {
+                    newUserBalance = Number.parseFloat(userData.balance) - Number.parseFloat(amount)
+                    newCategoryBalance = Number.parseFloat(category.balance) - Number.parseFloat(amount)
+                }
+                else {
+                    newUserBalance = Number.parseFloat(userData.balance) + Number.parseFloat(amount)
+                    newCategoryBalance = Number.parseFloat(category.balance) + Number.parseFloat(amount)
+                }
+                setCategory((category) => {
+                    return {
+                        ...category,
+                        balance: newCategoryBalance
+                    }
+                })
+                setUser((userData) => {
+                    return {
+                        ...userData,
+                        balance: newUserBalance
+                }
+                })
+            })
+    }
 
     return (
         <Container
@@ -150,6 +187,7 @@ function Category({ userData }) {
                         >
                             <Typography
                                 variant="h4"
+                                className={classes.infoText}
                             >
                                 Balance
                             </Typography>
@@ -168,6 +206,7 @@ function Category({ userData }) {
                         >
                             <Typography
                                 variant="h4"
+                                className={classes.infoText}
                             >
                                 Percentage
                             </Typography>
@@ -218,6 +257,11 @@ function Category({ userData }) {
                                     >
                                         Date
                                     </TableCell>
+                                    <TableCell
+                                        align="right"
+                                    >
+                                        
+                                    </TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -225,10 +269,12 @@ function Category({ userData }) {
                                     return (
                                         <CategoryTransactionsTableItem
                                             key={transaction.id}
+                                            id={transaction.id}
                                             name={transaction.name}
                                             amount={transaction.amount}
                                             date={transaction.created_at}
                                             gain={transaction.gain}
+                                            handleDeleteTransaction={handleDeleteTransaction}
                                         />
                                     )
                                 })}

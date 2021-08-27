@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
         minHeight: '80vh',
         maxHeight: '120vh',
         width: '60vh',
-        backgroundColor: theme.palette.secondary.light,
+        backgroundColor: theme.palette.primary.main,
         overflow: 'scroll'
     },
     content: {
@@ -28,11 +28,12 @@ const useStyles = makeStyles(theme => ({
         display: 'inline-block',
         verticalAlign: 'top',
         fontWeight: 'bold',
+        marginBottom: 10
     },
     divider: {
-        backgroundColor: theme.palette.primary.dark,
-        height: "2px",
-        width: '90%',
+        backgroundColor: theme.palette.secondary.dark,
+        height: "3px",
+        width: '80%',
 
     },
     balance: {

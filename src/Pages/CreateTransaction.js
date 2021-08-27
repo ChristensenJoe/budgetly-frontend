@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
     card: {
         minHeight: '50vh',
         width: '100%',
-        backgroundColor: theme.palette.secondary.light
+        backgroundColor: theme.palette.primary.light
     },
     content: {
         display: 'flex',
@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
         textAlign: 'center',
     },
     divider: {
-        backgroundColor: theme.palette.primary.dark,
+        backgroundColor: theme.palette.secondary.dark,
         height: "2px",
         width: '100%',
 

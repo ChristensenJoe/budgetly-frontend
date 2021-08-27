@@ -62,7 +62,7 @@ function LoginForm({ setUser, userList }) {
             <Typography
                 className={classes.margin}
                 variant="h4"
-                color="secondary"
+                color="primary"
             >
                 Log In
             </Typography>
@@ -81,7 +81,7 @@ function LoginForm({ setUser, userList }) {
                         label="Username"
                         name="username"
                         variant="outlined"
-                        color="secondary"
+                        color="primary"
                         required
                         onChange={handleLoginDetails}
                     />
@@ -95,7 +95,7 @@ function LoginForm({ setUser, userList }) {
                         label="Password"
                         name="password"
                         variant="outlined"
-                        color="secondary"
+                        color="primary"
                         required
                         onChange={handleLoginDetails}
                     />
@@ -106,7 +106,7 @@ function LoginForm({ setUser, userList }) {
                 >
                     <Button
                         className={classes.margin}
-                        color="secondary"
+                        color="primary"
                         variant="contained"
                         type="submit"
                     >

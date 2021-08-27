@@ -7,8 +7,24 @@ import {
 
 import DeleteIcon from '@material-ui/icons/Delete';
 
+import {useState, useEffect} from 'react';
+
 function TransactionsTableItem({ name, id, date, amount, handleDeleteTransaction, gain }) {
 
+    const [mainCategory, setMainCategory] = useState([]);
+
+    useEffect(() => {
+        let isMounted = true;
+        fetch(`http://localhost:9292/transactions/main_category/${id}`)
+        .then(res => res.json())
+        .then(data => {
+            if(isMounted) {
+                setMainCategory(data)
+            }
+        });
+
+        return () => { isMounted = false }
+    }, [id])
 
     return (
         <TableRow>
@@ -16,6 +32,11 @@ function TransactionsTableItem({ name, id, date, amount, handleDeleteTransaction
                 align="left"
             >
                 {name}
+            </TableCell>
+            <TableCell
+                align="right"
+            >
+                {mainCategory.name}
             </TableCell>
             <TableCell
                 align="right"
@@ -31,7 +52,7 @@ function TransactionsTableItem({ name, id, date, amount, handleDeleteTransaction
                 align="right"
             >
                 <IconButton
-                    onClick={(e) => {handleDeleteTransaction(id, amount)}}
+                    onClick={(e) => { handleDeleteTransaction(id, amount) }}
                 >
                     <DeleteIcon />
                 </IconButton>

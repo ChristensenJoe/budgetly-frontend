@@ -13,9 +13,9 @@ import { useState, useEffect } from "react";
 import LoginForm from "../Components/Forms/LoginForm";
 import SignupForm from "../Components/Forms/SignupForm";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     root: {
-        backgroundImage: `url(${BackgroundImage})`,
+        backgroundImage: `url("https://www.transparenttextures.com/patterns/purty-wood.png")`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
@@ -40,20 +40,20 @@ const useStyles = makeStyles({
     },
     name: {
         fontWeight: 'bold',
-        WebkitTextStroke: '1px black',
+        color: theme.palette.primary.main,
         marginBottom: 30
     },
     loginBox: {
         height: "50vh",
         width: "600px",
-        border: "3px solid",
+        border: `3px solid ${theme.palette.primary.dark}`,
         display: "flex",
         padding: "10px",
         alignItems: "center",
         flexDirection: "column",
-        backdropFilter: "blur(3px)",
+        backgroundColor: theme.palette.secondary.main
     }
-});
+}));
 
 function Login({ setUser }) {
     const classes = useStyles();
@@ -91,12 +91,12 @@ function Login({ setUser }) {
                 </Typography>
                 <Box
                     border={1}
-                    color="primary.main"
+                    color="primary.secondary"
                     borderRadius={16}
                     className={classes.loginBox}
                 >
                     <ButtonGroup
-                        color="secondary"
+                        color="secondary.light"
                         variant="contained"
                         style={{
                             marginTop: "20px"

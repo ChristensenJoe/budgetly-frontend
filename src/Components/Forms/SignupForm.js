@@ -49,7 +49,7 @@ function SignupForm() {
             <Typography
                 className={classes.margin}
                 variant="h4"
-                color="secondary"
+                color="primary"
             > 
                 Sign Up
             </Typography>
@@ -67,7 +67,7 @@ function SignupForm() {
                     label="Username"
                     name="username"
                     variant="outlined"
-                    color="secondary"
+                    color="primary"
                     required
                     onChange={handleSignupDetails}
                 />
@@ -81,7 +81,7 @@ function SignupForm() {
                     label="Password"
                     name="password"
                     variant="outlined"
-                    color="secondary"
+                    color="primary"
                     required
                     onChange={handleSignupDetails}
                 />
@@ -92,7 +92,7 @@ function SignupForm() {
                 >
                     <Button
                         className={classes.margin}
-                        color="secondary"
+                        color="primary"
                         variant="contained"
                     >
                         Sign Up

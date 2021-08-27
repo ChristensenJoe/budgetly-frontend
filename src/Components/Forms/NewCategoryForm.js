@@ -58,7 +58,8 @@ function NewCategoryForm({userData}) {
         if(categoryForm.percentage === "") {
             setIsPercentageValid(false)
         } 
-        if(isCategoryValid && isPercentageValid) {
+
+        if(categoryForm.name !== "" && categoryForm.percentage !== "") {
             const percentage = Number.parseInt(categoryForm.percentage, 10)/100
             const newCategory = {
                 name: categoryForm.name,

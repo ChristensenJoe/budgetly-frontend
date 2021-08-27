@@ -1,11 +1,21 @@
 import { createTheme } from "@material-ui/core"
-import { lightBlue, amber } from "@material-ui/core/colors"
 
 const theme = createTheme({
     palette: {
-        primary: lightBlue,
-        secondary: amber
+        primary: {
+            light: "#89CFF0",
+            main: "#4682b4",
+            dark: "#1b5583"
+        },
+        secondary: {
+            light: "#fff5ee",
+            main: "#faf0e6",
+            dark: "#F2ebdd"
+        }
     },
+    typography: {
+        fontFamily: "'Noto Sans JP', sans-serif"
+    }
 })
 
 theme.typography.h3 = {

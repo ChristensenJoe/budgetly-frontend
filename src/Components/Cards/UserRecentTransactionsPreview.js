@@ -22,12 +22,13 @@ const useStyles = makeStyles(theme => ({
         display: 'inline-block',
         verticalAlign: 'top',
         fontWeight: 'bold',
-        wordBreak: 'break-all'
+        wordBreak: 'break-all',
+        marginBottom: 5
     },
     divider: {
         backgroundColor: theme.palette.secondary.dark,
         height: "2px",
-        width: '90%',
+        width: '75%',
     },
     balance: {
         fontSize: "40px",

@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     card: {
         minHeight: '50vh',
         width: '100%',
-        backgroundColor: theme.palette.secondary.light
+        backgroundColor: theme.palette.primary.light
     },
     content: {
         display: 'flex',
@@ -50,8 +50,8 @@ const useStyles = makeStyles(theme => ({
         fontWeight: 'bold',
     },
     divider: {
-        backgroundColor: theme.palette.primary.dark,
-        height: "2px",
+        backgroundColor: theme.palette.secondary.dark,
+        height: "4px",
         width: '100%',
 
     },
@@ -140,6 +140,11 @@ function Transactions({ userData, setUser }) {
                                         align="left"
                                     >
                                         Name
+                                    </TableCell>
+                                    <TableCell
+                                        align="right"
+                                    >
+                                        Main Category
                                     </TableCell>
                                     <TableCell
                                         align="right"

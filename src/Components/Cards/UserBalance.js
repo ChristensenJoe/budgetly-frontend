@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     root: {
         height: '35vh',
         width: '60vh',
-        backgroundColor: theme.palette.secondary.light
+        backgroundColor: theme.palette.primary.main
     },
     content: {
         display: 'flex',
@@ -25,14 +25,13 @@ const useStyles = makeStyles(theme => ({
         fontWeight: 'bold',
     },
     divider: {
-        backgroundColor: theme.palette.primary.dark,
-        height: "2px",
+        backgroundColor: theme.palette.secondary.dark,
+        height: "3px",
         width: '90%',
-
     },
     balance: {
         fontSize: "80px",
-
+        wordBreak: "break-word",
     }
 }));
 

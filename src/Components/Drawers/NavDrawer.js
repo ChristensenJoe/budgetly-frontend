@@ -27,7 +27,8 @@ const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
     drawer: {
         width: drawerWidth,
-        flexShrink: 0
+        flexShrink: 0,
+        backgroundColor: theme.palette.primary.light
     },
     drawerHeader: {
         width: drawerWidth,
