@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function NewCategoryForm({userData}) {
+function NewCategoryForm({userData, setCategories}) {
     const history = useHistory();
     const theme = useTheme();
     const classes = useStyles(theme);
@@ -78,6 +78,7 @@ function NewCategoryForm({userData}) {
             })
             .then(res => res.json())
             .then(data => {
+                setCategories((categories) => [...categories, data])
                 history.push(`/${userData.username}`)
             })
         }

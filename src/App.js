@@ -14,7 +14,6 @@ import { useState } from "react"
 import { lightTheme } from "./Themes/Lightmode";
 import Login from "./Pages/Login";
 import UserRoutes from "./Pages/UserRoutes";
-import NavBar from "./Components/NavBar/NavBar.js";
 
 const useStyles = makeStyles({
   root: {
@@ -42,9 +41,6 @@ function App() {
               />
             </Route>
             <Route path="/:user">
-              <NavBar
-                userData={user}
-              />
               <UserRoutes
                 userData={user}
                 setUser={setUser}

@@ -53,7 +53,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-function CreateCategory({ userData }) {
+function CreateCategory({ userData, setCategories }) {
     const theme = useTheme();
     const classes = useStyles(theme);
     const history = useHistory();
@@ -87,6 +87,7 @@ function CreateCategory({ userData }) {
                 <CardContent>
                     <NewCategoryForm
                         userData={userData}
+                        setCategories={setCategories}
                     />
                 </CardContent>
             </Card>

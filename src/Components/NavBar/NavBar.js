@@ -11,7 +11,6 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import clsx from "clsx";
 
-import { useEffect } from "react"
 
 import budgetlyImg from "../../Images/Budgetly.png";
 import NavDrawer from '../Drawers/NavDrawer';
@@ -44,17 +43,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function NavBar({ userData }) {
+function NavBar({ userData, categories }) {
   const theme = useTheme();
   const classes = useStyles(theme);
   const [isOpen, setIsOpen] = useState(false)
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    fetch(`http://localhost:9292/categories?user_id=${userData.id}`)
-      .then(res => res.json())
-      .then(setCategories);
-  }, [userData.id])
+  
 
   function handleDrawerClick() {
     setIsOpen((isOpen) => !isOpen)
