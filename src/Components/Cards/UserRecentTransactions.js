@@ -48,7 +48,7 @@ function UserRecentTransactions({ userData }) {
 
     useEffect(() => {
         let isMounted = true;
-        fetch(`http://localhost:9292/transactions?user_id=${userData.id}&limit=10`)
+        fetch(`http://localhost:9292/transactions?user_id=${userData.id}&limit=5`)
             .then(res => res.json())
             .then(data => {
                 if (isMounted) {
