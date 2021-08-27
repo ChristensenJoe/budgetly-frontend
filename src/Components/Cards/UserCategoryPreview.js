@@ -78,7 +78,7 @@ function UserCategoryPreview({name, balance, userData}) {
                         className={classes.balance}
                         variant="h3"
                     >
-                        {balance}
+                        ${balance}
                     </Typography>
                 </CardContent>
             </Card>
